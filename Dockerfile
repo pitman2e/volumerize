@@ -1,7 +1,7 @@
 FROM alpine:3.12.0
 MAINTAINER Steffen Bleul <sbl@blacklabelops.com>
 
-ARG JOBBER_VERSION=1.3.4
+#ARG JOBBER_VERSION=1.3.4
 ARG DOCKER_VERSION=1.12.2
 ARG DUPLICITY_VERSION=0.8.15
 ARG DUPLICITY_SERIES=0.8
@@ -68,10 +68,10 @@ RUN apk upgrade --update && \
     tar -xzvf /tmp/duplicity.tar.gz -C /tmp && \
     cd /tmp/duplicity-${DUPLICITY_VERSION} && python3 setup.py install && \
     # Install Jobber
-    export CONTAINER_UID=1000 && \
-    export CONTAINER_GID=1000 && \
-    export CONTAINER_USER=jobber_client && \
-    export CONTAINER_GROUP=jobber_client && \
+    #export CONTAINER_UID=1000 && \
+    #export CONTAINER_GID=1000 && \
+    #export CONTAINER_USER=jobber_client && \
+    #export CONTAINER_GROUP=jobber_client && \
     # Install tools
     apk add \
       go \
@@ -80,10 +80,10 @@ RUN apk upgrade --update && \
       wget \
       make && \
     # Install Jobber
-    addgroup -g $CONTAINER_GID jobber_client && \
-    adduser -u $CONTAINER_UID -G jobber_client -s /bin/bash -S jobber_client && \
-    wget --directory-prefix=/tmp https://github.com/dshearer/jobber/releases/download/v${JOBBER_VERSION}/jobber-${JOBBER_VERSION}-r0.apk && \
-    apk add --allow-untrusted --no-scripts /tmp/jobber-${JOBBER_VERSION}-r0.apk && \
+    #addgroup -g $CONTAINER_GID jobber_client && \
+    #adduser -u $CONTAINER_UID -G jobber_client -s /bin/bash -S jobber_client && \
+    #wget --directory-prefix=/tmp https://github.com/dshearer/jobber/releases/download/v${JOBBER_VERSION}/jobber-${JOBBER_VERSION}-r0.apk && \
+    #apk add --allow-untrusted --no-scripts /tmp/jobber-${JOBBER_VERSION}-r0.apk && \
     # Install Docker CLI
     curl -fSL "https://get.docker.com/builds/Linux/x86_64/docker-${DOCKER_VERSION}.tgz" -o /tmp/docker.tgz && \
     export DOCKER_SHA=43b2479764ecb367ed169076a33e83f99a14dc85 && \
